@@ -1,12 +1,8 @@
 package com.example.hackathonapp;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -23,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
                aboutBtn = findViewById(R.id.aboutBtn),
                mapBtn = findViewById(R.id.mapBtn),
-               reportBtn = findViewById(R.id.reportBtn);
+               reportBtn = findViewById(R.id.reportBtn),
+               accountBtn = findViewById(R.id.accountBtn);
 
         thingstodoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(), report.class);
+                startActivity(startIntent);
+            }
+        });
+        accountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), account.class);
                 startActivity(startIntent);
             }
         });

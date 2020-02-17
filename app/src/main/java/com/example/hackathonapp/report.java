@@ -1,17 +1,22 @@
 package com.example.hackathonapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class report extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        mAuth = FirebaseAuth.getInstance();
 
         Button reportnewsBtn = findViewById(R.id.reportnewsBtn),
                reportmapBtn = findViewById(R.id.mapreportBtn);
@@ -19,8 +24,18 @@ public class report extends AppCompatActivity {
         reportnewsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), reportnews.class);
-                startActivity(startIntent);
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                if(currentUser != null)
+                {
+                    Intent startIntent = new Intent(getApplicationContext(), reportnews.class);
+                    startActivity(startIntent);
+                }
+                else
+                {
+                    Intent startIntent = new Intent(getApplicationContext(), login.class);
+                    startActivity(startIntent);
+                }
             }
         });
         reportmapBtn.setOnClickListener(new View.OnClickListener() {
