@@ -2,10 +2,14 @@ package com.example.hackathonapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -18,8 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,6 +92,39 @@ public class MainActivity extends AppCompatActivity {
         // Display the view
         setContentView(v);
 
+        myRef = database.getReference("IMG");
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+
+
+                try
+                {
+                    byte[] myImage = Base64.getDecoder().decode(value);
+
+                    Bitmap bmp= BitmapFactory.decodeByteArray(myImage,0,myImage.length);
+                    if (bmp!=null)
+                    {
+                        ImageView myView = (ImageView)findViewById(R.id.imageView);
+                        myView.setImageBitmap(bmp);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Log.e("Create file error : ",e.getMessage());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDED");
+                // Failed to read value
+            }
+        });
 
         Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
                 aboutBtn = findViewById(R.id.aboutBtn),

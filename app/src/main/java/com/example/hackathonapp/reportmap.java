@@ -19,8 +19,11 @@ import androidx.core.content.FileProvider;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
@@ -74,7 +77,11 @@ public class reportmap extends AppCompatActivity {
                 bitmap = BitmapFactory.decodeFile(pathToFile);
                 ImageView camView = (ImageView) findViewById(R.id.pictureScreen);
                 camView.setImageBitmap(bitmap);
-                write("IMG", pathToFile);
+
+
+                File f =  new File(pathToFile);
+                String encodstring = encodeFileToBase64Binary(f);
+                write("IMG", encodstring);
             }
 
         }
@@ -105,4 +112,23 @@ public class reportmap extends AppCompatActivity {
         }
         return image;
     }
+
+    private static String encodeFileToBase64Binary(File file){
+        String encodedfile = null;
+        try {
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            encodedfile = new String(Base64.getEncoder().encode(bytes), "UTF-8");
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return encodedfile;
+    }
+
 }
