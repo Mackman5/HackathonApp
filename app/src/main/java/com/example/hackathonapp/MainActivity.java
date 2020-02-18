@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         // Display the view
         setContentView(v);
 
+
         Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
                 aboutBtn = findViewById(R.id.aboutBtn),
                 mapBtn = findViewById(R.id.mapBtn),

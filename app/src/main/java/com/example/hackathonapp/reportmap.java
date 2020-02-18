@@ -1,6 +1,5 @@
 package com.example.hackathonapp;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,8 +16,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.io.File;
@@ -27,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
+import static com.example.hackathonapp.MainActivity.write;
 
 public class reportmap extends AppCompatActivity {
 
@@ -106,10 +104,5 @@ public class reportmap extends AppCompatActivity {
             Log.d("log", "Excep : " + e.toString());
         }
         return image;
-    }
-    public static void write(String ref, String value){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(ref);
-        myRef.setValue(value);
     }
 }
