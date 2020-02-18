@@ -1,7 +1,10 @@
 package com.example.hackathonapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -85,8 +88,22 @@ public class map extends FragmentActivity implements OnMapReadyCallback {
                             LatLng temp = new LatLng(Double.parseDouble(values.get(2)), Double.parseDouble(values.get(3)));
 
                             BitmapDescriptor markIcon = null;
-                            if(title.toLowerCase() == "pothole") {
-                            markIcon = BitmapDescriptorFactory.fromResource(R.drawable.pothole_marker);
+                            if(title.toLowerCase().equals("pothole")) {
+                                Log.d("Filter", "POTHOLE");
+
+                                markIcon = BitmapDescriptorFactory.fromBitmap(resizeMapIcons("pothole_marker", 100, 100));
+                                Marker tempMark = mMap.addMarker(new MarkerOptions()
+                                        .position(temp)
+                                        .title(title)
+                                        .snippet(desc)
+                                        .icon(markIcon));
+                                String tempId = tempMark.getId();
+                                markerMap.put(tempId, rer.toString());
+                            }
+                            else if(title.toLowerCase().equals("street sign")) {
+                                Log.d("Filter", "STREET SIGN");
+
+                                markIcon = BitmapDescriptorFactory.fromBitmap(resizeMapIcons("sign_marker", 100, 100));
                                 Marker tempMark = mMap.addMarker(new MarkerOptions()
                                         .position(temp)
                                         .title(title)
@@ -100,8 +117,7 @@ public class map extends FragmentActivity implements OnMapReadyCallback {
                                 Marker tempMark = mMap.addMarker(new MarkerOptions()
                                         .position(temp)
                                         .title(title)
-                                        .snippet(desc)
-                                        .icon(markIcon));
+                                        .snippet(desc));
                                 String tempId = tempMark.getId();
                                 markerMap.put(tempId, rer.toString());
                             }
@@ -149,5 +165,11 @@ public class map extends FragmentActivity implements OnMapReadyCallback {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(ref);
         myRef.setValue(value);
+    }
+
+    public Bitmap resizeMapIcons(String iconName, int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
     }
 }
