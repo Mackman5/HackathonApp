@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
-
+        android:id = "@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"
+        android:onClick="homeClick">
+    </item>
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
-
+        android:id = "@+id/about"
+        android:icon="@drawable/ic_home"
+        android:title="About"
+        android:onClick="aboutClick">
+    </item>
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
-
+        android:id = "@+id/map"
+        android:icon="@drawable/ic_home"
+        android:title="Map"
+        android:onClick="mapClick">
+    </item>
+    <item
+        android:id = "@+id/report"
+        android:icon="@drawable/ic_home"
+        android:title="Report"
+        android:onClick="reportClick">
+    </item>
 </menu>

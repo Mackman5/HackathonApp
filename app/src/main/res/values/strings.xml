@@ -8,5 +8,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_aurora_map">Map</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

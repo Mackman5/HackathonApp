@@ -6,4 +6,11 @@
     <item name="text4" type="id"/>
     <item name="text5" type="id"/>
     <item name="text6" type="id"/>
+
+    <item name="home" type="id"/>
+    <item name="about" type="id"/>
+    <item name="map" type="id"/>
+    <item name="report" type="id"/>
+
+    <item name="lel" type="id"/>
 </resources>

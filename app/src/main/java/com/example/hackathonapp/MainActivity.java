@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,21 +22,29 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.androdocs.httprequest.HttpRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    String CITY = "aurora,ca";
+    String API = "4967ea0b819ff9c00ca10a1af62468f0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -272,20 +283,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
-                aboutBtn = findViewById(R.id.aboutBtn),
+        Button //aboutBtn = findViewById(R.id.aboutBtn),
                 mapBtn = findViewById(R.id.mapBtn),
-                reportBtn = findViewById(R.id.reportBtn),
+                //reportBtn = findViewById(R.id.reportBtn),
                 accountBtn = findViewById(R.id.accountBtn);
 
-        thingstodoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), thingstodo.class);
-                startActivity(startIntent);
-            }
-        });
-        aboutBtn.setOnClickListener(new View.OnClickListener() {
+        /*aboutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent startIntent = new Intent(getApplicationContext(), about.class);
@@ -305,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent startIntent = new Intent(getApplicationContext(), report.class);
                 startActivity(startIntent);
             }
-        });
+        });*/
         accountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,11 +316,87 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
+        new weatherTask().execute();
+    }
+
+    class weatherTask extends AsyncTask<String, Void, String> {
+
+        protected String doInBackground(String... args) {
+            String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?q=" + CITY + "&units=metric&appid=" + API);
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+
+            try {
+                JSONObject jsonObj = new JSONObject(result);
+                JSONObject main = jsonObj.getJSONObject("main");
+                JSONObject sys = jsonObj.getJSONObject("sys");
+                JSONObject wind = jsonObj.getJSONObject("wind");
+                JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
+
+                Long updatedAt = jsonObj.getLong("dt");
+                String updatedAtText = "Updated at: " + new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(updatedAt * 1000));
+                String temp = main.getString("temp") + "°C";
+                String tempMin = "Min Temp: " + main.getString("temp_min") + "°C";
+                String tempMax = "Max Temp: " + main.getString("temp_max") + "°C";
+                //INPUT
+                final TextView temp42 = (TextView) findViewById(R.id.temp);
+                temp42.setText(tempMax);
+
+                String pressure = main.getString("pressure");
+                String humidity = main.getString("humidity");
+
+                Long sunrise = sys.getLong("sunrise");
+                Long sunset = sys.getLong("sunset");
+                String windSpeed = wind.getString("speed");
+                String weatherDescription = weather.getString("description");
+                final TextView temp43 = (TextView) findViewById(R.id.descripttion);
+                temp43.setText(weatherDescription);
+
+                String address = jsonObj.getString("name") + ", " + sys.getString("country");
+
+
+                /* Populating extracted data into our views */
+
+
+            } catch (JSONException e) {
+                System.out.println(e);
+            }
+
+        }
     }
 
     public static void write(String ref, String value){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(ref);
         myRef.setValue(value);
+    }
+
+    public void homeClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(startIntent);
+    }
+
+    public void aboutClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), about.class);
+        startActivity(startIntent);
+    }
+
+    public void mapClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), map.class);
+        startActivity(startIntent);
+    }
+
+
+    public void reportClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), report.class);
+        startActivity(startIntent);
     }
 }

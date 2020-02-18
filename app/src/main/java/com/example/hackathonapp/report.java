@@ -2,6 +2,7 @@ package com.example.hackathonapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -47,5 +48,28 @@ public class report extends AppCompatActivity {
             }
         });
     }
+    public void homeClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(startIntent);
+    }
 
+    public void aboutClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), about.class);
+        startActivity(startIntent);
+    }
+
+    public void mapClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), map.class);
+        startActivity(startIntent);
+    }
+
+
+    public void reportClick(MenuItem menuItem)
+    {
+        Intent startIntent = new Intent(getApplicationContext(), report.class);
+        startActivity(startIntent);
+    }
 }
