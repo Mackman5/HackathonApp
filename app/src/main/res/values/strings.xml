@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon App</string>
+    <string name="app_name">App</string>
     <string name="channel_name">CHANNELNAME</string>
     <string name="channel_description">CHANNELDESC</string>
     <string name="title_activity_homepage">homepage</string>
@@ -7,5 +7,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_aurora_map">Map</string>
 
 </resources>

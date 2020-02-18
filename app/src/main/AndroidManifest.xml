@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hackathonapp">
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyB_endXiMmgO-0W5HY98K69-n4d9ayW9UI"/>
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyB_endXiMmgO-0W5HY98K69-n4d9ayW9UI" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -34,8 +37,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".auroraMap"
+            android:label="@string/title_activity_aurora_map"></activity>
+        <activity android:name=".history" />
+        <activity android:name=".leaders" />
+        <activity android:name=".info" />
+        <activity
             android:name=".map"
-            android:label="@string/title_activity_map"></activity>
+            android:label="@string/title_activity_map" />
         <activity android:name=".account" />
         <activity android:name=".signup" />
         <activity android:name=".login" />
@@ -55,12 +64,13 @@
         </activity>
 
         <provider
-            android:authorities="com.example.hackathonapp.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.hackathonapp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
