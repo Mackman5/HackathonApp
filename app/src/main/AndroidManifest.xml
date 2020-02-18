@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hackathonapp">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyB_endXiMmgO-0W5HY98K69-n4d9ayW9UI"/>
+        android:value="AIzaSyB_endXiMmgO-0W5HY98K69-n4d9ayW9UI" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".reportmap"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,12 +38,11 @@
 
         <activity
             android:name=".map"
-            android:label="@string/title_activity_map"></activity>
+            android:label="@string/title_activity_map" />
         <activity android:name=".account" />
         <activity android:name=".signup" />
         <activity android:name=".login" />
         <activity android:name=".reportnews" />
-        <activity android:name=".reportmap" />
         <activity android:name=".report" />
         <activity android:name=".about" />
         <activity android:name=".thingstodo" />
@@ -50,7 +54,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <provider
+            android:authorities="com.example.hackathonapp.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
     </application>
 
 </manifest>

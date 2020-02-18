@@ -28,47 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
-               aboutBtn = findViewById(R.id.aboutBtn),
-               mapBtn = findViewById(R.id.mapBtn),
-               reportBtn = findViewById(R.id.reportBtn),
-               accountBtn = findViewById(R.id.accountBtn);
 
-        thingstodoBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), thingstodo.class);
-                startActivity(startIntent);
-            }
-        });
-        aboutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), about.class);
-                startActivity(startIntent);
-            }
-        });
-        mapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), map.class);
-                startActivity(startIntent);
-            }
-        });
-        reportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), report.class);
-                startActivity(startIntent);
-            }
-        });
-        accountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent startIntent = new Intent(getApplicationContext(), account.class);
-                startActivity(startIntent);
-            }
-        });
 
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -123,6 +83,48 @@ public class MainActivity extends AppCompatActivity {
 
         // Display the view
         setContentView(v);
+
+        Button thingstodoBtn = findViewById(R.id.thingstodoBtn),
+                aboutBtn = findViewById(R.id.aboutBtn),
+                mapBtn = findViewById(R.id.mapBtn),
+                reportBtn = findViewById(R.id.reportBtn),
+                accountBtn = findViewById(R.id.accountBtn);
+
+        thingstodoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), thingstodo.class);
+                startActivity(startIntent);
+            }
+        });
+        aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), about.class);
+                startActivity(startIntent);
+            }
+        });
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), map.class);
+                startActivity(startIntent);
+            }
+        });
+        reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), report.class);
+                startActivity(startIntent);
+            }
+        });
+        accountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent startIntent = new Intent(getApplicationContext(), account.class);
+                startActivity(startIntent);
+            }
+        });
     }
 
     public static void write(String ref, String value){
